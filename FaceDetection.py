@@ -1,4 +1,4 @@
-# -*-coding:utf-8-*-
+# -*- coding:utf-8 -*-
 import configparser
 import datetime
 import os
@@ -60,6 +60,8 @@ class FaceDetection:
         self.source_image_id = list()
         self.json_data = OrderedDict()
 
+        self.save_image_path = "./faces"
+
     # 얼굴 인식 함수
     def face_extractor(self, img):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -98,6 +100,12 @@ class FaceDetection:
     def capture_faces(self):
         cap = cv2.VideoCapture(0)
         count = 0
+
+        # 폴더 없을시 만들어줌.
+
+        if not os.path.isdir(self.save_image_path):
+            os.mkdir(self.save_image_path)
+
         while True:
             ret, frame = cap.read()
             # detect = self.face_extractor(frame)
@@ -115,7 +123,7 @@ class FaceDetection:
                 count += 1
 
                 # ex > faces/user0.jpg   faces/user1.jpg ....
-                file_name_path = 'faces/user' + str(count) + '.jpg'
+                file_name_path = self.save_image_path + '/user' + str(count) + '.jpg'
                 cv2.imwrite(file_name_path, frame)
                 # cv2.putText(frame, str(count), (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
 
@@ -179,14 +187,14 @@ class FaceDetection:
                     # response = requests.get(IMAGE_BASE_URL + source_image_file_names[i])
                     # img = Image.open("./faces/"+source_image_file_names[i])
                     # img.show()
-                    
+
                     # json data 가공
                     # 21660072.jpg면 21660072를 id로
                     self.json_data["id"] = self.target_image_file_names[j].split(".")[0]
                     now = datetime.datetime.now()
                     now_date_time = now.strftime('%Y-%m-%d %H:%M:%S')
                     self.json_data["time"] = now_date_time
-                    
+
                     if way_of_print_data is "console":
                         print(json.dumps(self.json_data, ensure_ascii=False, indent="\t"))
                     elif way_of_print_data is "json":
