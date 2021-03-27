@@ -17,6 +17,7 @@ if __name__ == "__main__":
         except APIErrorException as e:
             print(e.message)
 
+        # Q 누를시 종료
         if cv2.waitKey(1) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
             exit()

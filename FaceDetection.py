@@ -60,8 +60,6 @@ class FaceDetection:
         self.source_image_id = list()
         self.json_data = OrderedDict()
 
-        self.save_image_path = "./faces"
-
     # 얼굴 인식 함수
     def face_extractor(self, img):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -102,20 +100,18 @@ class FaceDetection:
         count = 0
 
         # 폴더 없을시 만들어줌.
-
-        if not os.path.isdir(self.save_image_path):
-            os.mkdir(self.save_image_path)
+        if not os.path.isdir(self.IMAGE_BASE_LOCAL):
+            os.mkdir(self.IMAGE_BASE_LOCAL)
 
         while True:
             ret, frame = cap.read()
-            # detect = self.face_extractor(frame)
             img = cv2.resize(frame, (int(self.config["FaceDetection"]["screen_width"]),
                                      int(self.config["FaceDetection"]["screen_height"])))
 
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             faces = self.face_classifier.detectMultiScale(gray, 1.1, 5)
 
-            # 찾은 얼굴이 있으면 얼굴을 잘라서 cropped_face에 넣어서 리턴
+            # 찾은 얼굴 표시
             for (x, y, w, h) in faces:
                 cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
@@ -123,8 +119,9 @@ class FaceDetection:
                 count += 1
 
                 # ex > faces/user0.jpg   faces/user1.jpg ....
-                file_name_path = self.save_image_path + '/user' + str(count) + '.jpg'
+                file_name_path = self.IMAGE_BASE_LOCAL + '/user' + str(count) + '.jpg'
                 cv2.imwrite(file_name_path, frame)
+                # 캡쳐한 갯수 표시부분인데 일단 주석해놓음. 지저분해.
                 # cv2.putText(frame, str(count), (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
 
             else:
@@ -143,14 +140,9 @@ class FaceDetection:
         # cv2.destroyAllWindows()
         print('Colleting Samples Complete!!!')
 
-    def get_captured_images(self, path='./faces'):
-        # get saved image
-        path_dir = path
-        return os.listdir(path_dir)
-
     def init_source_images(self):
         # The source photos contain this person
-        self.source_image_file_names = self.get_captured_images(self.IMAGE_BASE_LOCAL)
+        self.source_image_file_names = os.listdir(self.IMAGE_BASE_LOCAL)
 
         # Detect face(s) from source image 1, returns a list[DetectedFaces]
         # We use detection model 3 to get better performance.
@@ -207,7 +199,7 @@ class FaceDetection:
                             a.write('Faces from {} & {} are of the same person, with confidence: {}\n'
                                     .format(self.source_image_id[i][1], self.target_image_file_names[j],
                                             verify_result.confidence * 100))
-                    elif way_of_print_data is None:
+                    elif way_of_print_data is "None":
                         pass
                     return True
 
@@ -244,6 +236,7 @@ if __name__ == "__main__":
         except APIErrorException as e:
             print(e.message)
 
+        # Q 누를시 종료
         if cv2.waitKey(1) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
             exit()
