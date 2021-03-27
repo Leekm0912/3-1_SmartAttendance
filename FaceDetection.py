@@ -25,10 +25,10 @@ class FaceDetection:
 
     def __init__(self):
         self.config = configparser.ConfigParser()
-        self.config.read("config.ini")
+        self.config.read("config.ini", encoding="utf-8")
 
         private_config = configparser.ConfigParser()
-        private_config.read("private_config.ini")
+        private_config.read("private_config.ini", encoding="utf-8")
 
         # 얼굴 인식용 xml 파일
         self.face_classifier = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -56,9 +56,10 @@ class FaceDetection:
 
         self.source_image_file_names = None
 
-        self.detected_faces = list()
         self.source_image_id = list()
         self.json_data = OrderedDict()
+
+        self.camera_number = self.config["FaceDetection"]["camera_number"]
 
     # 얼굴 인식 함수
     def face_extractor(self, img):
@@ -96,7 +97,8 @@ class FaceDetection:
         return detected_faces
 
     def capture_faces(self):
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(int(self.camera_number))
+
         count = 0
 
         # 폴더 없을시 만들어줌.
