@@ -34,10 +34,10 @@ class FaceDetection:
         self.face_classifier = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
         # This key will serve all examples in this document.
-        self.KEY = self.config["AZURE"]["KEY"]
+        self.KEY = private_config["AZURE"]["KEY"]
 
         # This endpoint will be used in all examples in this quickstart.
-        self.ENDPOINT = self.config["AZURE"]["END_POINT"]
+        self.ENDPOINT = private_config["AZURE"]["END_POINT"]
 
         # Azure 객체 생성
         self.face_client = FaceClient(self.ENDPOINT, CognitiveServicesCredentials(self.KEY))
@@ -101,8 +101,8 @@ class FaceDetection:
         while True:
             ret, frame = cap.read()
             # detect = self.face_extractor(frame)
-            img = cv2.resize(frame, (self.config["FaceDetection"]["screen_width"],
-                                     self.config["FaceDetection"]["screen_height"]))
+            img = cv2.resize(frame, (int(self.config["FaceDetection"]["screen_width"]),
+                                     int(self.config["FaceDetection"]["screen_height"])))
 
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             faces = self.face_classifier.detectMultiScale(gray, 1.1, 5)
@@ -229,7 +229,7 @@ if __name__ == "__main__":
         try:
             fd.capture_faces()
             fd.init_source_images()
-            fd.verify_face_to_face("txt")
+            fd.verify_face_to_face()
             fd.init_face_data()
 
         # API 요청 한도 초과.

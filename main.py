@@ -5,12 +5,12 @@ import cv2
 import FaceDetection
 
 if __name__ == "__main__":
-    fd = FaceDetection.instance()
+    fd = FaceDetection.FaceDetection.instance()
     while True:
         try:
             fd.capture_faces()
             fd.init_source_images()
-            fd.verify_face_to_face("txt")
+            fd.verify_face_to_face()
             fd.init_face_data()
 
         # API 요청 한도 초과.

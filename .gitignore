@@ -1,1 +1,5 @@
 private*
+TargetImageURLs.txt
+result.*
+faces/*
+__pycache__
