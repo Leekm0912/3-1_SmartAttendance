@@ -5,7 +5,7 @@
 * ```pip install --upgrade azure-cognitiveservices-vision-face```
 * ```pip install pillow```
 * ```pip install opencv-python```   
-한번에 설치 => ```pip install -r requirements.txt```
+#### 한번에 설치 → ```pip install -r requirements.txt```
 
 
 # private_config.ini 생성 필요
