@@ -9,6 +9,8 @@ import cv2
 import json
 from collections import OrderedDict
 
+import UseFirebase as UF
+
 
 class FaceDetection:
     __instance = None
@@ -184,45 +186,25 @@ class FaceDetection:
 
                     # json data 가공
                     # 21660072.jpg면 21660072를 id로
-                    self.json_data["id"] = self.target_image_file_names[j].split(".")[0]
+                    student_id = self.target_image_file_names[j].split(".")[0]
+                    self.json_data[student_id] = {}
+                    self.json_data[student_id]["id"] = student_id
                     now = datetime.datetime.now()
                     now_date_time = now.strftime('%Y-%m-%d %H:%M:%S')
-                    self.json_data["time"] = now_date_time
+                    self.json_data[student_id]["time"] = now_date_time
 
-                    if way_of_print_data is "console":
-                        print(json.dumps(self.json_data, ensure_ascii=False, indent="\t"))
-                    elif way_of_print_data is "json":
-                        # save json file
-                        with open('result.json', 'w', encoding="utf-8") as w:
-                            json.dump(self.json_data, w, ensure_ascii=False, indent="\t")
-                    elif way_of_print_data is "txt":
-                        with open("result.txt", "a", encoding="utf-8") as a:
-                            a.write(json.dumps(self.json_data, ensure_ascii=False, indent="\t"))
-                            a.write('Faces from {} & {} are of the same person, with confidence: {}\n'
-                                    .format(self.source_image_id[i][1], self.target_image_file_names[j],
-                                            verify_result.confidence * 100))
-                    elif way_of_print_data is "None":
-                        pass
-                    return True
+                    print(json.dumps(self.json_data, ensure_ascii=False, indent="\t"))
+                    return student_id, self.json_data
 
                 else:
-                    if way_of_print_data is "console":
-                        print('Faces from {} & {} are of a different person, with confidence: {}'
-                              .format(self.source_image_id[i][1], self.target_image_file_names[j],
-                                      verify_result.confidence * 100))
-                    elif way_of_print_data is "txt":
-                        print('Faces from {} & {} are of a different person, with confidence: {}'
-                              .format(self.source_image_id[i][1], self.target_image_file_names[j],
-                                      verify_result.confidence * 100))
-                        with open("result.txt", "a", encoding="utf-8") as a:
-                            a.write('Faces from {} & {} are of a different person, with confidence: {}\n'
-                                    .format(self.source_image_id[i][1], self.target_image_file_names[j],
-                                            verify_result.confidence * 100))
+                    print('Faces from {} & {} are of a different person, with confidence: {}')
+
         return False
 
     def init_face_data(self):
         self.detected_faces = []
         self.source_image_id = []
+        self.json_data = OrderedDict()
 
 
 if __name__ == "__main__":

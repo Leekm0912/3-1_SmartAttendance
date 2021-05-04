@@ -3,3 +3,4 @@ TargetImageURLs.txt
 result.*
 faces/*
 __pycache__
+/key/*
