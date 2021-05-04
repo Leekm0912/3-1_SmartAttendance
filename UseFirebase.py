@@ -19,6 +19,7 @@ class UseFirebase:
     # 테이블명 : 날짜_교시_과목코드
     @staticmethod
     def updateData(ref_dir, student_id, data):
+        data = {student_id: data}
         ref = db.reference(ref_dir)
         snapshot = db.reference(ref_dir + "/" + student_id)
         temp = json.loads(json.dumps(snapshot.get()))

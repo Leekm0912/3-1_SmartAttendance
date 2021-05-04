@@ -203,6 +203,7 @@ class FaceDetection:
         self.detected_faces = []
         self.source_image_id = []
         self.json_data = OrderedDict()
+        self.json_data["result"] = False
 
 
 if __name__ == "__main__":
