@@ -62,6 +62,14 @@ class FaceDetection:
         self.json_data = OrderedDict()
 
         self.camera_number = self.config["FaceDetection"]["camera_number"]
+        self.count = 0
+        self.frame_count = 0
+        self.cap = cv2.VideoCapture(int(self.camera_number))
+        self.student_id = None
+
+        # 폴더 없을시 만들어줌.
+        if not os.path.isdir(self.IMAGE_BASE_LOCAL):
+            os.mkdir(self.IMAGE_BASE_LOCAL)
 
     # 얼굴 인식 함수
     def face_extractor(self, img):
@@ -98,51 +106,39 @@ class FaceDetection:
                 print('{} face(s) detected from image {}.'.format(len(self.detected_faces_ids), image_file_name))
         return detected_faces
 
-    def capture_faces(self):
-        cap = cv2.VideoCapture(int(self.camera_number))
+    def capture_faces(self, text):
+        self.faces = ()
 
-        count = 0
+        ret, frame = self.cap.read()
+        self.frame_count += 1
+        cv2.putText(frame, text, (0, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0))
+        img = cv2.resize(frame, (int(self.config["FaceDetection"]["screen_width"]),
+                                 int(self.config["FaceDetection"]["screen_height"])))
 
-        # 폴더 없을시 만들어줌.
-        if not os.path.isdir(self.IMAGE_BASE_LOCAL):
-            os.mkdir(self.IMAGE_BASE_LOCAL)
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        faces = self.face_classifier.detectMultiScale(gray, 1.1, 5)
 
-        while True:
-            ret, frame = cap.read()
-            img = cv2.resize(frame, (int(self.config["FaceDetection"]["screen_width"]),
-                                     int(self.config["FaceDetection"]["screen_height"])))
+        # 찾은 얼굴 표시
+        for (x, y, w, h) in faces:
+            cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            faces = self.face_classifier.detectMultiScale(gray, 1.1, 5)
-
-            # 찾은 얼굴 표시
-            for (x, y, w, h) in faces:
-                cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
-
-            if faces is not ():
-                count += 1
-
+        if faces is not ():
+            if self.count <= 3:
+                self.count += 1
                 # ex > faces/user0.jpg   faces/user1.jpg ....
-                file_name_path = self.IMAGE_BASE_LOCAL + '/user' + str(count) + '.jpg'
+                file_name_path = self.IMAGE_BASE_LOCAL + '/user' + str(self.count) + '.jpg'
                 cv2.imwrite(file_name_path, frame)
                 # 캡쳐한 갯수 표시부분인데 일단 주석해놓음. 지저분해.
                 # cv2.putText(frame, str(count), (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
 
-            else:
+        else:
+            if self.frame_count % 10 == 0:
                 print("Face not Found")
 
-            if self.config["FaceDetection"]["show_screen"]:
-                cv2.imshow('Face Cropper', img)
+        if self.config["FaceDetection"]["show_screen"]:
+            cv2.imshow('Face Cropper', img)
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                cv2.destroyAllWindows()
-                exit()
-            elif count == 3:
-                break
 
-        cap.release()
-        # cv2.destroyAllWindows()
-        print('Colleting Samples Complete!!!')
 
     def init_source_images(self):
         # The source photos contain this person
@@ -186,17 +182,19 @@ class FaceDetection:
 
                     # json data 가공
                     # 21660072.jpg면 21660072를 id로
-                    student_id = self.target_image_file_names[j].split(".")[0]
-                    self.json_data[student_id] = {}
-                    self.json_data[student_id]["id"] = student_id
+                    self.json_data["result"] = True
+                    self.student_id = self.target_image_file_names[j].split(".")[0]
+                    self.json_data[self.student_id] = {}
+                    self.json_data[self.student_id]["id"] = self.student_id
                     now = datetime.datetime.now()
                     now_date_time = now.strftime('%Y-%m-%d %H:%M:%S')
-                    self.json_data[student_id]["time"] = now_date_time
+                    self.json_data[self.student_id]["time"] = now_date_time
 
                     print(json.dumps(self.json_data, ensure_ascii=False, indent="\t"))
-                    return student_id, self.json_data
+                    return self.student_id, self.json_data
 
                 else:
+                    self.json_data["result"] = False
                     print('Faces from {} & {} are of a different person, with confidence: {}')
 
         return False
