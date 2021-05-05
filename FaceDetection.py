@@ -135,7 +135,7 @@ class FaceDetection:
             if self.frame_count % 10 == 0:
                 print("Face not Found")
 
-        if self.config["FaceDetection"]["show_screen"]:
+        if self.config["FaceDetection"]["show_screen"] != "0":
             cv2.imshow('Face Cropper', img)
 
 
