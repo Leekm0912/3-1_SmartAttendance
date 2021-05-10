@@ -25,6 +25,7 @@ def work():
             # 역시 소켓통신 구현 전이니 직접 넣어줌
             ref_dir = "210504_1_K0125146"
             UF.UseFirebase.updateData(ref_dir, student_id, student_json[student_id])
+
         else:
             print("인식결과 없음")
         fd.init_face_data()
