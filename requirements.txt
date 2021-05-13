@@ -1,3 +1,6 @@
 azure-cognitiveservices-vision-face
 pillow
 opencv-python
+firebase_admin
+pyfcm
+pyserial

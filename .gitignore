@@ -4,3 +4,4 @@ result.*
 faces/*
 __pycache__
 /key/*
+client_token*
