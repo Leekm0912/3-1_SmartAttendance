@@ -39,6 +39,7 @@ def work():
                 else:
                     print("아두이노 미 연결")
                     student_json[student_id]["temp"] = 0
+                    student_json[student_id]["result"] = 0
                 # 역시 소켓통신 구현 전이니 직접 넣어줌
                 ref_dir = "210512_1_K0125146"
                 UF.UseFirebase.updateData(ref_dir, student_id, student_json[student_id])

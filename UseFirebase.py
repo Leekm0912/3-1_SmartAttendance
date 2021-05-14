@@ -47,7 +47,7 @@ class UseFirebase:
                 result = push_service.notify_single_device(registration_id=token, message_title=title, message_body=body)
 
             # 전송 결과 출력
-            print(result)
+            print("클라우드 메시징 전송 결과 : ", result)
 
         sendMessage(data[student_id]["id"],"출석 완료")
 
