@@ -46,7 +46,7 @@ class UseFirebase:
                                                            message_body=body)
 
             # 전송 결과 출력
-            print(result)
+            print("클라우드 메시징 전송 결과 : ", result)
 
         sendMessage(data[student_id]["id"], "출석 완료")
 
