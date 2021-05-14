@@ -29,9 +29,7 @@ class UseFirebase:
     CLOUDMESSAGING_APIKEY = private_config["firebase_cloudmessaging"]["APIKEY"]
 
     @classmethod
-    def cloudMessaging(cls, student_id,data):
-
-
+    def cloudMessaging(cls, student_id, data):
         # 파이어베이스 콘솔에서 얻어 온 서버 키를 넣어 줌
         push_service = FCMNotification(cls.CLOUDMESSAGING_APIKEY)
 
@@ -44,14 +42,13 @@ class UseFirebase:
             # 토큰값을 이용해 등록한 사용자에게 푸시알림을 전송함
             for token in cls.token_list:
                 token = token.split("\n")[0]
-                result = push_service.notify_single_device(registration_id=token, message_title=title, message_body=body)
+                result = push_service.notify_single_device(registration_id=token, message_title=title,
+                                                           message_body=body)
 
             # 전송 결과 출력
             print(result)
 
-        sendMessage(data[student_id]["id"],"출석 완료")
-
-
+        sendMessage(data[student_id]["id"], "출석 완료")
 
     # 테이블명 : 날짜_교시_과목코드
     @classmethod
@@ -60,10 +57,10 @@ class UseFirebase:
         ref = db.reference(ref_dir)
         snapshot = db.reference(ref_dir + "/" + student_id)
         temp = json.loads(json.dumps(snapshot.get()))
-        if temp and temp["result"] == 1:
+        print("id 조회결과 :", temp)
+        if temp and temp["result"] == 1:  # 정상처리된 사용자는 데이터 입력안함.
             print("이미 출석한 사용자 입니다.")
             return
-        now = datetime.datetime.now().strftime('%y%m%d')
         ref.update(data)
         cls.cloudMessaging(student_id, data)
         print(id, "학생 추가완료")
@@ -75,8 +72,6 @@ class UseFirebase:
             return student["result"]
         else:
             return 0
-
-
 
 
 if __name__ == "__main__":
