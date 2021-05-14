@@ -9,6 +9,7 @@ from serial import SerialException
 class ArduinoSerialProtocol:
     data = []
     __instance = None
+    connected = False
 
     @classmethod
     def __getInstance(cls):
@@ -75,11 +76,16 @@ class ArduinoSerialProtocol:
     @classmethod
     def start2(cls):
         cls.data = []
-        ser = serial.Serial(
-            port="COM5",
-            baudrate=9600,
-            timeout=1
-        )
+        try:
+            ser = serial.Serial(
+                port="COM5",
+                baudrate=9600,
+                timeout=1
+            )
+            cls.connected = True
+        except serial.SerialException as se:
+            print(se)
+            cls.connected = False
         while len(cls.data) < 5:
             try:
                 print(ser.write("s".encode()))
