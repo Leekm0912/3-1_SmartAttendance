@@ -2,11 +2,11 @@
 from azure.cognitiveservices.vision.face.models import APIErrorException
 import cv2
 import threading
+from multiprocessing.pool import ThreadPool
 
 import FaceDetection
 import UseFirebase as UF
 import ArduinoSerialProtocol
-import SocetServer
 
 
 def work():
@@ -56,18 +56,11 @@ def work():
 
 
 if __name__ == "__main__":
-    ss = SocetServer.SocetServer.instance()
-    server_thread = threading.Thread(target=ss.start)
-    server_thread.daemon = True
-    server_thread.start()
     fd = FaceDetection.FaceDetection.instance()
     asp = ArduinoSerialProtocol.ArduinoSerialProtocol.instance()
     working = False
     text = "detecting face"
-    # 데이터 들어올때까지 실행안함.
-    while not ss.data:
-        pass
-    while ss.server_state:
+    while True:
         try:
             fd.capture_faces(text)
             if fd.count == 3:
