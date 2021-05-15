@@ -17,7 +17,7 @@ class SocetServer:
 
     def __init__(self):
         # 소켓을 만든다.
-        self.data = None
+        self.data = []
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # 소켓 레벨과 데이터 형태를 설정한다.
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -32,7 +32,6 @@ class SocetServer:
         # 커넥션이 되면 접속 주소가 나온다.
         print('Connected by', addr)
         try:
-            self.data = []
             self.server_state = True
             # 접속 상태에서는 클라이언트로 부터 받을 데이터를 무한 대기한다.
             # 만약 접속이 끊기게 된다면 except가 발생해서 접속이 끊기게 된다.
@@ -47,7 +46,8 @@ class SocetServer:
                 # 수신된 데이터를 str형식으로 decode한다.
                 msg = data.decode()
                 # 수신된 메시지를 콘솔에 출력한다.
-                self.data.append(msg)
+                if msg:
+                    self.data.append(msg)
                 if msg == "end":
                     self.server_state = False
                     return
