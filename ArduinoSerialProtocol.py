@@ -7,9 +7,22 @@ from serial import SerialException
 
 
 class ArduinoSerialProtocol:
+    config = configparser.ConfigParser()
+    config.read("config.ini", encoding="utf-8")
     data = []
     __instance = None
     connected = False
+
+    try:
+        ser = serial.Serial(
+            port=config["Arduino"]["port"],
+            baudrate=config["Arduino"]["baudrate"],
+            timeout=1
+        )
+        connected = True
+    except serial.SerialException as se:
+        print(se)
+        connected = False
 
     @classmethod
     def __getInstance(cls):
@@ -35,11 +48,11 @@ class ArduinoSerialProtocol:
                     baudrate=self.config["Arduino"]["baudrate"],
                     timeout=1
                 )
-                print("연결완료 ", self.ser.portstr)  # 연결된 포트 확인.
+                print("?곌껐?꾨즺 ", self.ser.portstr)  # ?곌껐???ы듃 ?뺤씤.
                 connect = True
             except serial.SerialException as se:
                 print(se)
-                print("시리얼 포트 연결 오류")
+                print("?쒕━???ы듃 ?곌껐 ?ㅻ쪟")
 
     def start(self, command):
         count = 0
@@ -76,20 +89,11 @@ class ArduinoSerialProtocol:
     @classmethod
     def start2(cls):
         cls.data = []
-        try:
-            ser = serial.Serial(
-                port="COM5",
-                baudrate=9600,
-                timeout=1
-            )
-            cls.connected = True
-        except serial.SerialException as se:
-            print(se)
-            cls.connected = False
+
         while len(cls.data) < 5:
             try:
-                print(ser.write("s".encode()))
-                res = ser.readline().decode()
+                print(cls.ser.write("s".encode()))
+                res = cls.ser.readline().decode()
                 # decode byte data and slice \n
                 if res:
                     cls.data.append(res.strip())
@@ -106,16 +110,5 @@ class ArduinoSerialProtocol:
 
 
 if __name__ == "__main__":
-    asp = ArduinoSerialProtocol.instance()
     print(ArduinoSerialProtocol.start2())
-    print(asp.ser.readable())
-    print(asp.ser.write(bytes("s", encoding='ascii')))
-    sleep(3)
-    while asp.ser.readable():
-        # print(asp.ser)
-        res = asp.ser.readline().decode()
-        # decode byte data and slice \n
-        print(res)
-        asp.temp_result.append(res)
-    asp.ser.close()
-    # print(asp.temp_result)
+
