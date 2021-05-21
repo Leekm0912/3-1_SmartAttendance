@@ -107,3 +107,4 @@ if __name__ == "__main__":
                 exit()
         ss.data = []
         print("대기")
+        cv2.destroyAllWindows()
