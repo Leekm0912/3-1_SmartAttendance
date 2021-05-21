@@ -7,6 +7,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 from pyfcm import FCMNotification
+from playsound import playsound
 
 
 class UseFirebase:
@@ -60,6 +61,7 @@ class UseFirebase:
         print("id 조회결과 :", temp)
         if temp and temp["result"] == 1:  # 정상처리된 사용자는 데이터 입력안함.
             print("이미 출석한 사용자 입니다.")
+            playsound("sound/audio_4.mp3")
             return
         ref.update(data)
         cls.cloudMessaging(student_id, data)
