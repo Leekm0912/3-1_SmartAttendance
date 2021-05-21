@@ -1,13 +1,15 @@
 # -*- coding:utf-8 -*-
+from collections import OrderedDict
 import configparser
 import datetime
 import os
+import json
+
 from azure.cognitiveservices.vision.face import FaceClient
 from azure.cognitiveservices.vision.face.models import APIErrorException
 from msrest.authentication import CognitiveServicesCredentials
 import cv2
-import json
-from collections import OrderedDict
+from playsound import playsound
 
 import UseFirebase as UF
 
@@ -104,6 +106,7 @@ class FaceDetection:
             for detected in detected_faces:
                 self.detected_faces_ids.append(detected.face_id)
                 print('{} face(s) detected from image {}.'.format(len(self.detected_faces_ids), image_file_name))
+        print("target faces initialize complete")
         return detected_faces
 
     def capture_faces(self, text):
@@ -137,8 +140,6 @@ class FaceDetection:
 
         if self.config["FaceDetection"]["show_screen"] != "0":
             cv2.imshow('Face Cropper', img)
-
-
 
     def init_source_images(self):
         # The source photos contain this person
@@ -174,6 +175,7 @@ class FaceDetection:
                     print('Faces from {} & {} are of the same person, with confidence: {}'
                           .format(self.source_image_id[i][1], self.target_image_file_names[j],
                                   verify_result.confidence * 100))
+                    # playsound("sound/audio_6.mp3")
 
                     # Download the image from the url
                     # response = requests.get(IMAGE_BASE_URL + source_image_file_names[i])
@@ -196,6 +198,7 @@ class FaceDetection:
                 else:
                     self.json_data["result"] = False
                     print('Faces from {} & {} are of a different person, with confidence: {}')
+                    # playsound("sound/audio_7.mp3")
 
         return False
 
