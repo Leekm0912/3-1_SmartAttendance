@@ -37,10 +37,10 @@ def work():
                         sound_thread_args = ("audio_1.mp3",)
                     elif 37.5 < temp < 38:
                         student_json[student_id]["result"] = 2  # 미열
-                        sound_thread_args = ("audio_1.mp3",)
+                        sound_thread_args = ("audio_2.mp3",)
                     elif 38 < temp < 41:
                         student_json[student_id]["result"] = 3  # 고열
-                        sound_thread_args = ("audio_1.mp3",)
+                        sound_thread_args = ("audio_3.mp3",)
                     else:
                         student_json[student_id]["result"] = 0  # 오류
                         sound_thread_args = ("audio_5.mp3",)
