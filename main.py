@@ -79,28 +79,31 @@ if __name__ == "__main__":
     working = False
     text = "detecting face"
     # 데이터 들어올때까지 실행안함.
-    while not ss.data:
-        pass
-    while ss.server_state:
-        try:
-            fd.capture_faces(text)
-            if fd.count == 3:
-                text = "checking"
-                print('Colleting Samples Complete!!!')
-                if not working:
-                    print("working")
-                    work_thread = threading.Thread(target=work)
-                    work_thread.daemon = True
-                    work_thread.start()
-        # API 요청 한도 초과.
-        except APIErrorException as ae:
-            print(ae.message)
+    while True:
+        while not ss.data:
+            pass
+        while ss.server_state:
+            try:
+                fd.capture_faces(text)
+                if fd.count == 3:
+                    text = "checking"
+                    print('Colleting Samples Complete!!!')
+                    if not working:
+                        print("working")
+                        work_thread = threading.Thread(target=work)
+                        work_thread.daemon = True
+                        work_thread.start()
+            # API 요청 한도 초과.
+            except APIErrorException as ae:
+                print(ae.message)
 
-        except TypeError as te:
-            print("TypeError")
+            except TypeError as te:
+                print("TypeError")
 
-        # Q 누를시 종료
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            fd.cap.release()
-            cv2.destroyAllWindows()
-            exit()
+            # Q 누를시 종료
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                fd.cap.release()
+                cv2.destroyAllWindows()
+                exit()
+        ss.data = []
+        print("대기")
