@@ -89,10 +89,10 @@ class ArduinoSerialProtocol:
     @classmethod
     def start2(cls):
         cls.data = []
-
+        print("전송된 byte 길이 =", cls.ser.write("s".encode()))
         while len(cls.data) < 5:
             try:
-                print("전송된 byte 길이 =", cls.ser.write("s".encode()))
+
                 res = cls.ser.readline().decode()
                 # decode byte data and slice \n
                 if res:
