@@ -31,19 +31,18 @@ def work():
                     ArduinoSerialProtocol.ArduinoSerialProtocol.start2()
                     temp = float(max(ArduinoSerialProtocol.ArduinoSerialProtocol.data))  # 5개의 값중 가장 높은값을 불러옴
                     student_json[student_id]["temp"] = temp
-                    sound_thread_args = ""
                     if 34 < temp < 37.5:
                         student_json[student_id]["result"] = 1  # 정상
-                        sound_thread_args = ("sound/audio_1.wav",)
+                        sound_thread_args = "sound/audio_1.wav"
                     elif 37.5 < temp < 38:
                         student_json[student_id]["result"] = 2  # 미열
-                        sound_thread_args = ("sound/audio_2.wav",)
+                        sound_thread_args = "sound/audio_2.wav"
                     elif 38 < temp < 41:
                         student_json[student_id]["result"] = 3  # 고열
-                        sound_thread_args = ("sound/audio_3.wav",)
+                        sound_thread_args = "sound/audio_3.wav"
                     else:
                         student_json[student_id]["result"] = 0  # 오류
-                        sound_thread_args = ("sound/audio_5.wav",)
+                        sound_thread_args = "sound/audio_5.wav"
                     sound_thread = threading.Thread(target=playSound.playSound.play, args=(sound_thread_args,))
                     sound_thread.daemon = True
                     sound_thread.start()
