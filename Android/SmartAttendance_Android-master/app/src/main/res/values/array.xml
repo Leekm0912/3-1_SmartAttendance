@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="period">
+        <item>1교시</item>
+        <item>2교시</item>
+        <item>3교시</item>
+        <item>4교시</item>
+        <item>5교시</item>
+        <item>6교시</item>
+        <item>7교시</item>
+        <item>8교시</item>
+        <item>9교시</item>
+    </string-array>
+
+    <string-array name="lecture">
+        <item>캡스톤디자인2</item>
+        <item>자바스크립트 심화</item>
+        <item>스프링</item>
+        <item>클라우드</item>
+    </string-array>
+    
+</resources>
