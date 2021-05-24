@@ -16,9 +16,7 @@ def work():
     try:
         if not working:
             working = True
-            sound_thread = threading.Thread(target=playSound.playSound.play, args=("sound/audio_0.wav",))
-            sound_thread.daemon = True
-            sound_thread.start()
+            playSound.playSound.play("sound/audio_0.wav")
             fd.init_source_images()
             thread = threading.Thread(target=fd.verify_face_to_face)
             thread.daemon = True
@@ -43,9 +41,7 @@ def work():
                     else:
                         student_json[student_id]["result"] = 0  # 오류
                         sound_thread_args = "sound/audio_5.wav"
-                    sound_thread = threading.Thread(target=playSound.playSound.play, args=(sound_thread_args,))
-                    sound_thread.daemon = True
-                    sound_thread.start()
+                    playSound.playSound.play(sound_thread_args)
                     print("온도 결과", student_json[student_id]["temp"], student_json[student_id]["result"])
                 else:
                     print("아두이노 미 연결")

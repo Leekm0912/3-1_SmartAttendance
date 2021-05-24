@@ -92,7 +92,7 @@ class ArduinoSerialProtocol:
 
         while len(cls.data) < 5:
             try:
-                print(cls.ser.write("s".encode()))
+                print("전송된 byte 길이 =", cls.ser.write("s".encode()))
                 res = cls.ser.readline().decode()
                 # decode byte data and slice \n
                 if res:
@@ -105,10 +105,9 @@ class ArduinoSerialProtocol:
 
             except ValueError as ve:
                 print(ve)
-        print(cls.data)
+        print("받은 데이터", cls.data)
         return max(cls.data)
 
 
 if __name__ == "__main__":
     print(ArduinoSerialProtocol.start2())
-
