@@ -4,4 +4,4 @@ opencv-python
 firebase_admin
 pyfcm
 pyserial
-playsound
+simpleaudio

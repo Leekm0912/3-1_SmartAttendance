@@ -2,7 +2,7 @@
 from azure.cognitiveservices.vision.face.models import APIErrorException
 import cv2
 import threading
-from playsound import playsound
+import playSound
 
 import FaceDetection
 import UseFirebase as UF
@@ -16,7 +16,7 @@ def work():
     try:
         if not working:
             working = True
-            sound_thread = threading.Thread(target=playsound, args=("sound/audio_0.mp3",))
+            sound_thread = threading.Thread(target=playSound.playSound.play, args=("sound/audio_0.wav",))
             sound_thread.daemon = True
             sound_thread.start()
             fd.init_source_images()
@@ -34,17 +34,17 @@ def work():
                     sound_thread_args = ""
                     if 34 < temp < 37.5:
                         student_json[student_id]["result"] = 1  # 정상
-                        sound_thread_args = ("audio_1.mp3",)
+                        sound_thread_args = ("sound/audio_1.wav",)
                     elif 37.5 < temp < 38:
                         student_json[student_id]["result"] = 2  # 미열
-                        sound_thread_args = ("audio_2.mp3",)
+                        sound_thread_args = ("sound/audio_2.wav",)
                     elif 38 < temp < 41:
                         student_json[student_id]["result"] = 3  # 고열
-                        sound_thread_args = ("audio_3.mp3",)
+                        sound_thread_args = ("sound/audio_3.wav",)
                     else:
                         student_json[student_id]["result"] = 0  # 오류
-                        sound_thread_args = ("audio_5.mp3",)
-                    sound_thread = threading.Thread(target=playsound, args=(sound_thread_args,))
+                        sound_thread_args = ("sound/audio_5.wav",)
+                    sound_thread = threading.Thread(target=playSound.playSound.play, args=(sound_thread_args,))
                     sound_thread.daemon = True
                     sound_thread.start()
                     print("온도 결과", student_json[student_id]["temp"], student_json[student_id]["result"])
