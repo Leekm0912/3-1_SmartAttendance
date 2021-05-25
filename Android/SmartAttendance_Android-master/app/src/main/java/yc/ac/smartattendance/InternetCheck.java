@@ -21,7 +21,12 @@ class InternetCheck extends AsyncTask<Void,Void,Boolean> {
         sock.close();
         Log.i("서버연결 확인","성공");
         return true; // 성공시 true
-    } catch (IOException e) { e.printStackTrace(); return false; } } // 실패시 false 리턴
+    } catch (IOException e) {
+        AppData.SERVER_IP = "";
+        e.printStackTrace();
+        return false;
+        }
+    } // 실패시 false 리턴
 
     @Override protected void onPostExecute(Boolean internet) { mConsumer.accept(internet); }
 }
