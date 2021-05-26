@@ -9,6 +9,17 @@
     <!--    android:background="@color/main_color">-->
 
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="213dp"
+        android:layout_height="220dp"
+        android:alpha="120"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/yonam1" />
+
     <Spinner
         android:id="@+id/spinnerLecture2"
         android:layout_width="wrap_content"
@@ -36,6 +47,7 @@
         android:id="@+id/textView_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#6AFFFFFF"
         android:fontFamily="monospace"
         android:text="날짜를 선택해주세요"
         android:textColor="#6E6E6E"
