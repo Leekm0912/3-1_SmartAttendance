@@ -54,6 +54,8 @@ public class OpenAttendance extends AppCompatActivity {
                 ((TextView)parent.getChildAt(0)).setTextColor(Color.BLACK);
                 selectedLecture = whichLecture(parent.getItemAtPosition(position).toString());
                 tempLecture = parent.getItemAtPosition(position).toString();
+                if("".equals(selectedLecture)){ selectedPeriod = "스프링";}
+                if("".equals(tempLecture)){ selectedPeriod = "스프링";}
 //                Log.d(TAG, "과목 onItemSelected: " + parent.getItemAtPosition(position) + " 이 선택됨");
             }
 
@@ -72,6 +74,8 @@ public class OpenAttendance extends AppCompatActivity {
                 ((TextView)parent.getChildAt(0)).setTextColor(Color.BLACK);
                 selectedPeriod = whichPeriod(parent.getItemAtPosition(position).toString());
                 tempPeriod = parent.getItemAtPosition(position).toString();
+                if("".equals(selectedPeriod)){ selectedPeriod = "1교시";}
+                if("".equals(tempPeriod)){ selectedPeriod = "1교시";}
 //                Log.d(TAG, "교시 onItemSelected: " + parent.getItemAtPosition(position) + " 이 선택됨");
             }
 
