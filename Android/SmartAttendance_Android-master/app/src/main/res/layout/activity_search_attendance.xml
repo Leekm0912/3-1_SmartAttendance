@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchAttendance"
     android:background="@color/main_color"
-    >
+    tools:context=".SearchAttendance">
     <!--    android:background="@color/main_color">-->
 
 
@@ -16,30 +15,30 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/black"
         android:entries="@array/lecture"
         app:layout_constraintBottom_toTopOf="@+id/button6"
-        app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/black"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/spinnerPeriod2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:backgroundTint="@color/black"
         android:entries="@array/period"
         app:layout_constraintBottom_toBottomOf="@+id/spinnerLecture2"
         app:layout_constraintStart_toEndOf="@+id/spinnerLecture2"
-        app:layout_constraintTop_toTopOf="@+id/spinnerLecture2"
-        android:backgroundTint="@color/black"/>
+        app:layout_constraintTop_toTopOf="@+id/spinnerLecture2" />
 
 
     <TextView
         android:id="@+id/textView_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="monospace"
         android:text="날짜를 선택해주세요"
-        android:textColor="#ff0000"
+        android:textColor="#6E6E6E"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/button6"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,6 +77,7 @@
         android:onClick="OnClickHandler"
         android:text="날짜 선택"
         android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintDimensionRatio="9"
         app:layout_constraintStart_toStartOf="parent" />
