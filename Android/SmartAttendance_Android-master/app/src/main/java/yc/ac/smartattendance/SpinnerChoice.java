@@ -17,7 +17,7 @@ public class SpinnerChoice {
                 result = "K0124627";
                 break;
             default:
-                result = "";
+                result = "K0124723";
         }
         return result;
     }
@@ -38,7 +38,7 @@ public class SpinnerChoice {
                 result = "클라우드";
                 break;
             default:
-                result = "";
+                result = "스프링";
         }
         return result;
     }
@@ -74,7 +74,7 @@ public class SpinnerChoice {
                 result = "9";
                 break;
             default:
-                result = "";
+                result = "1교시";
 
         }
         return result;
