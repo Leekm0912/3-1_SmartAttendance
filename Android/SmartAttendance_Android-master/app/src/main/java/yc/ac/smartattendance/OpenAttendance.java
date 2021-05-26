@@ -54,12 +54,14 @@ public class OpenAttendance extends AppCompatActivity {
                 ((TextView)parent.getChildAt(0)).setTextColor(Color.BLACK);
                 selectedLecture = whichLecture(parent.getItemAtPosition(position).toString());
                 tempLecture = parent.getItemAtPosition(position).toString();
+                if("".equals("selectedLecture")){ selectedPeriod = whichLecture("스프링"); };
+                if("".equals("tempLecture")){ selectedPeriod = "스프링"; };
 //                Log.d(TAG, "과목 onItemSelected: " + parent.getItemAtPosition(position) + " 이 선택됨");
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selectedLecture = "스프링";
+                selectedLecture = whichLecture("스프링");
                 tempLecture = "스프링";
 //                Log.d(TAG, "과목 onNothingSelected: " + "선택X -> 스프링 자동선택");
             }
@@ -72,12 +74,14 @@ public class OpenAttendance extends AppCompatActivity {
                 ((TextView)parent.getChildAt(0)).setTextColor(Color.BLACK);
                 selectedPeriod = whichPeriod(parent.getItemAtPosition(position).toString());
                 tempPeriod = parent.getItemAtPosition(position).toString();
+                if("".equals("selectedPeriod")){ selectedPeriod = "1"; };
+                if("".equals("tempPeriod")){ selectedPeriod = "1교시"; };
 //                Log.d(TAG, "교시 onItemSelected: " + parent.getItemAtPosition(position) + " 이 선택됨");
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selectedPeriod = "1교시";
+                selectedPeriod = "1";
                 tempPeriod = "1교시";
 //                Log.d(TAG, "교시 onNothingSelected: " + "선택x -> 1교시 자동 선택");
             }
@@ -143,8 +147,6 @@ public class OpenAttendance extends AppCompatActivity {
                             //서버로 테이블명 전송
                             SocketProcess.sendMsg(result);
                             //소켓통신으로 데이터 전송 후 초기화
-                            selectedLecture = "";
-                            selectedPeriod = "";
                             attendanceOpenCheck = 1;
                         }
                     }.start();
@@ -170,6 +172,7 @@ public class OpenAttendance extends AppCompatActivity {
                                             //서버로 전송
                                             SocketProcess.sendMsg(result);
                                             attendanceOpenCheck = 0;
+                                            //clearVariable();
                                         }
                                     }.start();
                                 }
@@ -187,9 +190,8 @@ public class OpenAttendance extends AppCompatActivity {
                             //서버로 테이블명 전송
                             SocketProcess.sendMsg(result);
                             //소켓통신으로 데이터 전송 후 초기화
-                            selectedLecture = "";
-                            selectedPeriod = "";
                             attendanceOpenCheck = 1;
+
                         }
                     }.start();
                     
@@ -214,6 +216,7 @@ public class OpenAttendance extends AppCompatActivity {
                             String result = "end";
                             //서버로 전송
                             SocketProcess.sendMsg(result);
+                            //clearVariable();
                             attendanceOpenCheck = 0;
                         }
                     }.start();
@@ -240,10 +243,18 @@ public class OpenAttendance extends AppCompatActivity {
                 String result = "end";
                 //서버로 전송
                 SocketProcess.sendMsg(result);
+                //clearVariable();
                 attendanceOpenCheck = 0;
                 Log.d("cliseClick 발생", "closeClick: " + result);
             }
         }.start();
-
     }
+
+    public void clearVariable(){
+        selectedLecture = "";
+        selectedPeriod = "";
+        tempLecture = "";
+        tempPeriod = "";
+    }
+
 }
