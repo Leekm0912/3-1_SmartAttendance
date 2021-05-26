@@ -51,15 +51,14 @@ class UseFirebase:
             # 전송 결과 출력
             print("클라우드 메시징 전송 결과 : ", result)
 
-        if(result == 1 and int(cls.config["Firebase"]["sendMessaage"])):
+        if result == 1 and int(cls.config["Firebase"]["sendMessage"]):
             sendMessage(data[student_id]["id"], "출석 완료")
-        elif(result == 2):
+        elif result == 2:
             sendMessage(data[student_id]["id"], "[주의] 미열")
-        elif(result== 3):
+        elif result == 3:
             sendMessage(data[student_id]["id"], "[주의] 고열")
-        else:
+        elif result == 0:
             sendMessage(data[student_id]["id"], "출석 오류")
-
 
     # 테이블명 : 날짜_교시_과목코드
     @classmethod
