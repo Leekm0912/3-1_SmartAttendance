@@ -16,7 +16,6 @@ def work():
     try:
         if not working:
             working = True
-            playSound.playSound.play("sound/audio_0.wav")
             fd.init_source_images()
             thread = threading.Thread(target=fd.verify_face_to_face)
             thread.daemon = True
@@ -25,6 +24,7 @@ def work():
             student_id, student_json = fd.student_id, fd.json_data
             if student_json["result"]:
                 text = "temperature check"
+                playSound.playSound.play("sound/audio_0.wav")
                 if ArduinoSerialProtocol.ArduinoSerialProtocol.connected:
                     ArduinoSerialProtocol.ArduinoSerialProtocol.start2()
                     temp = float(max(ArduinoSerialProtocol.ArduinoSerialProtocol.data))  # 5개의 값중 가장 높은값을 불러옴
@@ -51,6 +51,8 @@ def work():
                 ref_dir = ss.data[-1]
                 print("소켓통신 데이터 목록 :", ss.data)
                 print("ref_dir =", ref_dir)
+                print("조회 id", student_id)
+                print("data", student_json[student_id])
                 UF.UseFirebase.updateData(ref_dir, student_id, student_json[student_id])
 
             else:
