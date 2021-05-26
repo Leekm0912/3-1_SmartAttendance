@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MenuChoice"
-    android:background="@color/main_color"
+    android:background="@drawable/a7"
     >
 
     <Button
@@ -16,10 +16,11 @@
         android:layout_marginLeft="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:background="#FFFFFF"
+        android:background="@color/ic_launcher_background"
         android:onClick="openClick"
         android:text="출석 열기"
         android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="7"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +40,7 @@
         android:onClick="searchClick"
         android:text="출석 조회"
         android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintDimensionRatio="7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +53,8 @@
         android:layout_marginBottom="30dp"
         android:text="업무 선택"
         android:textColor="#000000"
-        android:textSize="30sp"
+        android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

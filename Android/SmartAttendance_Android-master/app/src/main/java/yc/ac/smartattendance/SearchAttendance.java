@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import static java.lang.Integer.parseInt;
+import static yc.ac.smartattendance.R.color.blue;
 import static yc.ac.smartattendance.SpinnerChoice.whichLecture;
 import static yc.ac.smartattendance.SpinnerChoice.whichPeriod;
 import static yc.ac.smartattendance.Today.getDay;
@@ -33,6 +35,7 @@ public class SearchAttendance extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener callbackMethod;
     String tableName;
     TextView textToday;
+    Button button;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
@@ -48,7 +51,7 @@ public class SearchAttendance extends AppCompatActivity {
         spinnerPeriod = findViewById(R.id.spinnerPeriod2);
         textToday = findViewById(R.id.textToday);
         textToday.setText(Today.getYear() + "년 " + Today.getMonth() + "월 " + Today.getDay() + "일");
-
+        button = findViewById(R.id.button6);
 
         //lecture스피너
         spinnerLecture.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -100,11 +103,12 @@ public class SearchAttendance extends AppCompatActivity {
                     String Day;
                     if(monthOfYear <= 9){ Month = "0" + (monthOfYear + 1); }else{ Month = monthOfYear + ""; }
                     if(dayOfMonth <= 9){ Day = "0" + dayOfMonth; }else{ Day = dayOfMonth + ""; }
-                    textView_Date.setText("날짜 : " + year + "년 " + (monthOfYear + 1) + "월 " + Day + "일");
+                    textView_Date.setText( year + "년 " + (monthOfYear + 1) + "월 " + Day + "일");
                     textView_Date.setTextColor(Color.BLACK);
                     choiceComplete = 1;
                     //테이블명에 날짜 먼저 입력
                     tableName = (year + "").substring(2) + Month + Day;
+                    button.setText("선택 완료");
 
                 }
             };
@@ -120,6 +124,7 @@ public class SearchAttendance extends AppCompatActivity {
 
     public void searchClick(View view) {
         if(choiceComplete == 1){
+            button.setText("날짜 선택");
             tableName += "_" + selectedPeriod + "_" + selectedLecture;
             myRef = database.getReference().child(tableName);
             if( myRef != null ) {

@@ -18,7 +18,9 @@
         android:layout_marginBottom="5dp"
         android:entries="@array/lecture"
         app:layout_constraintBottom_toTopOf="@+id/button6"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/black"
+        />
 
     <Spinner
         android:id="@+id/spinnerPeriod2"
@@ -28,7 +30,8 @@
         android:entries="@array/period"
         app:layout_constraintBottom_toBottomOf="@+id/spinnerLecture2"
         app:layout_constraintStart_toEndOf="@+id/spinnerLecture2"
-        app:layout_constraintTop_toTopOf="@+id/spinnerLecture2" />
+        app:layout_constraintTop_toTopOf="@+id/spinnerLecture2"
+        android:backgroundTint="@color/black"/>
 
 
     <TextView
@@ -38,9 +41,10 @@
         android:text="날짜를 선택해주세요"
         android:textColor="#ff0000"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toBottomOf="@+id/button6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/button6"
+        app:layout_constraintTop_toTopOf="@+id/button6" />
 
     <Button
         android:id="@+id/button5"
@@ -48,13 +52,14 @@
         android:layout_height="0dp"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
         android:background="#FFFFFF"
         android:onClick="searchClick"
         android:text="조회"
         android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="9"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,21 +68,18 @@
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
 
         android:layout_marginLeft="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="5dp"
-        android:background="#FFFFFF"
+        android:layout_marginBottom="10dp"
+        android:background="#F8F2F2"
         android:onClick="OnClickHandler"
         android:text="날짜 선택"
         android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/textView_date"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintDimensionRatio="9"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -87,7 +89,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
-        android:text="TextView"
+        android:text="날짜"
         android:textColor="#000000"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"

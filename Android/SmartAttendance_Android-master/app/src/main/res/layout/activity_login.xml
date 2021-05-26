@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_color"
     tools:context=".Login"
     android:orientation="vertical"
     >
@@ -12,14 +11,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F7F1FF"
+        android:background="@drawable/a1"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="225dp"
-            android:background="#F7F1FF"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical"
+            android:paddingTop="50dp">
 
             <ImageView
                 android:id="@+id/mainimage"
@@ -52,7 +52,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F7F1FF"
+
             android:orientation="vertical">
 
             <EditText
