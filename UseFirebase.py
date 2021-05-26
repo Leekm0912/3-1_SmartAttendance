@@ -51,7 +51,7 @@ class UseFirebase:
             # 전송 결과 출력
             print("클라우드 메시징 전송 결과 : ", result)
 
-        if result == 1 and int(cls.config["Firebase"]["sendMessage"]):
+        if result == 1:
             sendMessage(data[student_id]["id"], "출석 완료")
         elif result == 2:
             sendMessage(data[student_id]["id"], "[주의] 미열")
@@ -73,7 +73,7 @@ class UseFirebase:
             playSound.playSound.play("sound/audio_4.wav")
             return
         ref.update(data)
-        cls.cloudMessaging(student_id, data, temp["result"])
+        cls.cloudMessaging(student_id, data, data[student_id]["result"])
         print(id, "학생 추가완료")
 
     @staticmethod
@@ -88,11 +88,10 @@ class UseFirebase:
 if __name__ == "__main__":
     stu_id = "21660074"
     test_data = {
-        stu_id: {
-            "time": "1234",
-            "result": 1,
-            "temp": "36.5"
-        }
+        "id": stu_id,
+        "time": "1234",
+        "result": 1,
+        "temp": "36.5"
     }
     dir1 = "210321_2_K0125146"
     UseFirebase.updateData(dir1, stu_id, test_data)
