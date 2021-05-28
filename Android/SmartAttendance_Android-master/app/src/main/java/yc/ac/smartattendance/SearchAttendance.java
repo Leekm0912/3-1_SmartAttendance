@@ -92,27 +92,7 @@ public class SearchAttendance extends AppCompatActivity {
             textView_Date = (TextView)findViewById(R.id.textView_date);
         }
 
-        public void InitializeListener()
-        {
-            callbackMethod = new DatePickerDialog.OnDateSetListener()
-            {
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-                {
-                    String Month;
-                    String Day;
-                    if(monthOfYear <= 9){ Month = "0" + (monthOfYear + 1); }else{ Month = monthOfYear + ""; }
-                    if(dayOfMonth <= 9){ Day = "0" + dayOfMonth; }else{ Day = dayOfMonth + ""; }
-                    textView_Date.setText( year + "년 " + (monthOfYear + 1) + "월 " + Day + "일");
-                    textView_Date.setTextColor(Color.BLACK);
-                    choiceComplete = 1;
-                    //테이블명에 날짜 먼저 입력
-                    tableName = (year + "").substring(2) + Month + Day;
-                    button.setText("선택 완료");
 
-                }
-            };
-        }
 
         public void OnClickHandler(View view)
         {
@@ -140,7 +120,29 @@ public class SearchAttendance extends AppCompatActivity {
 
     }
 
+    public void InitializeListener()
+    {
+        callbackMethod = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+            {
+                String Month;
+                String Day;
+                if(monthOfYear <= 9){ Month = "0" + (monthOfYear + 1); }else{ Month = monthOfYear + ""; }
+                if(dayOfMonth <= 9){ Day = "0" + dayOfMonth; }else{ Day = dayOfMonth + ""; }
+                textView_Date.setText( year + "년 " + (monthOfYear + 1) + "월 " + Day + "일");
+                textView_Date.setTextColor(Color.BLACK);
+                choiceComplete = 1;
+                //테이블명에 날짜 먼저 입력
+                tableName = (year + "").substring(2) + Month + Day;
+                button.setText("선택 완료");
 
+            }
+        };
+    }
 
 
 }
+
+
