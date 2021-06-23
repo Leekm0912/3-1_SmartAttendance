@@ -11,10 +11,12 @@ import playSound
 
 
 class UseFirebase:
+    # 설정 불러오기.
     private_config = configparser.ConfigParser()
     config = configparser.ConfigParser()
     private_config.read("private_config.ini", encoding="utf-8")
     config.read("config.ini", encoding="utf-8")
+    # 클라이언트 토큰을 NAS에서 다운로드 후 저장.
     with open("client_token.txt", "wb") as file:  # open in binary mode
         response = get(private_config["firebase_cloudmessaging"]["TOKEN_URL"])  # get request
         print("download")
@@ -63,19 +65,24 @@ class UseFirebase:
     # 테이블명 : 날짜_교시_과목코드
     @classmethod
     def updateData(cls, ref_dir, student_id, data):
+        # json 데이터를 저장하기 위해 id를 key로 사용.
         data = {student_id: data}
         ref = db.reference(ref_dir)
+        # id 조회를 위해 student_id 데이터가 있는지 확인.
         snapshot = db.reference(ref_dir + "/" + student_id)
         temp = json.loads(json.dumps(snapshot.get()))
         print("id 조회결과 :", temp)
-        if temp and temp["result"] == 1:  # 정상처리된 사용자는 데이터 입력안함.
+        # 정상처리된 사용자는 데이터 입력안함.
+        if temp and temp["result"] == 1:
             print("이미 출석한 사용자 입니다.")
             playSound.playSound.play("sound/audio_4.wav")
             return
+        # 데이터 입력.
         ref.update(data)
         cls.cloudMessaging(student_id, data, data[student_id]["result"])
         print(id, "학생 추가완료")
 
+    # 학생 정보가 있는지 확인해주는 메소드.
     @staticmethod
     def isChecked(ref_dir, student_id):
         student = db.reference(ref_dir + "/" + student_id).get()
