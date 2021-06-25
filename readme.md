@@ -70,7 +70,7 @@
 
 - pyserial
 
-    ⇒ Raspberry PI – Arduino Serial 통신 사용.
+    ⇒ Raspberry PI ↔ Arduino Serial 통신 사용.
 
 - simpleaudio
 
