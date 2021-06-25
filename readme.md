@@ -1,6 +1,7 @@
 # 캡스톤 보고서
 
 # 프로젝트 개요
+![image](https://user-images.githubusercontent.com/42348176/123412661-d0fa6100-d5ec-11eb-8d66-9dd9bf9f91fb.jpg)
 
 ![image](https://user-images.githubusercontent.com/42348176/123411044-f9815b80-d5ea-11eb-9999-401ff3efc492.png)
 
