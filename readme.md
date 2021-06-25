@@ -2,16 +2,25 @@
 
 # 프로젝트 개요
 
-![%E1%84%8F%E1%85%A2%E1%86%B8%E1%84%89%E1%85%B3%E1%84%90%E1%85%A9%E1%86%AB%20%E1%84%87%E1%85%A9%E1%84%80%E1%85%A9%E1%84%89%E1%85%A5%20f72ee53cc3714b42bc610bd426298068/Untitled.png](%E1%84%8F%E1%85%A2%E1%86%B8%E1%84%89%E1%85%B3%E1%84%90%E1%85%A9%E1%86%AB%20%E1%84%87%E1%85%A9%E1%84%80%E1%85%A9%E1%84%89%E1%85%A5%20f72ee53cc3714b42bc610bd426298068/Untitled.png)
+![image](https://user-images.githubusercontent.com/42348176/123411044-f9815b80-d5ea-11eb-9999-401ff3efc492.png)
+
 
 1. Android Application에서 소켓통신을 이용해 Raspberry PI에 출석 오픈을 요청합니다.
+
 2. 출석이 오픈되면 Raspberry PI에 달려있는 카메라를 이용해 Stream을 엽니다.
+
 3. Stream에서 OpenCV의 얼굴 인식을 통해 얼굴이 인식될때까지 기다립니다.
+
 4. 얼굴이 인식되면 NAS에 있는 Target Image와 인식된 얼굴(Source Image)을 Azure API를 이용해 비교합니다.
+
 5. Target Image와 Source Image가 일치하는 얼굴이 있다면 Arduino에 온도 측정을 요청합니다.
+
 6. Arduino와 Raspberry PI는 시리얼 통신을 통해 온도정보를 주고받습니다.
+
 7. Raspberry PI는 받은 온도정보와 얼굴 인식 정보, 날짜, 결과코드 등을 학번을 PK로 하는 JSON 형식으로 가공해 Firebase에 업로드 합니다.
+
 8. Firebase DB에 변동사항이 생기면 Cloud Messaging Service를 이용해 교수자에게 Push 알림을 보냅니다.
+
 9. 교수자는 Android Application을 통해 출석정보를 열람하고 출석을 종료할 수 있습니다.
 
 ---
@@ -106,10 +115,13 @@
 
 # private_config.ini 생성 필요
 
-```
+```ini
 [AZURE]
+# 다운받은 AzureAPI의 Key 경로
 KEY = 
+# AzureAPI의 End Point(Console에서 확인 가능)
 END_POINT = 
+# TargetImage의 BaseURL
 IMAGE_BASE_URL = 
 
 [Firebase]
@@ -125,6 +137,6 @@ TOKEN_URL =
 
 # 프로젝트 구조
 
-![%E1%84%8F%E1%85%A2%E1%86%B8%E1%84%89%E1%85%B3%E1%84%90%E1%85%A9%E1%86%AB%20%E1%84%87%E1%85%A9%E1%84%80%E1%85%A9%E1%84%89%E1%85%A5%20f72ee53cc3714b42bc610bd426298068/Untitled%201.png](%E1%84%8F%E1%85%A2%E1%86%B8%E1%84%89%E1%85%B3%E1%84%90%E1%85%A9%E1%86%AB%20%E1%84%87%E1%85%A9%E1%84%80%E1%85%A9%E1%84%89%E1%85%A5%20f72ee53cc3714b42bc610bd426298068/Untitled%201.png)
+![image](https://user-images.githubusercontent.com/42348176/123411104-0bfb9500-d5eb-11eb-8f28-102da9a1ffde.png)
 
 ---
