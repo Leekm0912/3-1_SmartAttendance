@@ -1,4 +1,6 @@
-# 캡스톤 보고서
+# Smart Attendance
+
+![image](https://user-images.githubusercontent.com/42348176/123723472-6df71b80-d8c5-11eb-8e2d-be702e4634df.png)
 
 # 프로젝트 개요
 ![image](https://user-images.githubusercontent.com/42348176/123412661-d0fa6100-d5ec-11eb-8d66-9dd9bf9f91fb.jpg)
