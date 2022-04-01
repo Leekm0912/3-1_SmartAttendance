@@ -1,5 +1,4 @@
 # Smart Attendance
-![스소3A 상장](https://user-images.githubusercontent.com/42348176/130194168-2e08961b-aee8-479e-b13d-b14b5a5669bf.png)
 
 ![image](https://user-images.githubusercontent.com/42348176/123723472-6df71b80-d8c5-11eb-8e2d-be702e4634df.png)
 
