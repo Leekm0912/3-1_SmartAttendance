@@ -48,6 +48,9 @@ class SocetServer:
                 # 수신된 메시지를 콘솔에 출력한다.
                 if msg:
                     self.data.append(msg)
+                else:
+                    # 수신된 메시지가 없으면 메서드 종료.
+                    return
                 if msg == "end":
                     self.server_state = False
                     return
